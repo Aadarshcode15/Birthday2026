@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday! 🎂</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Dancing+Script:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose: #e8507a;
+    --deep-rose: #c0325a;
+    --blush: #f9c5d1;
+    --gold: #f4c430;
+    --champagne: #f7e7c6;
+    --cream: #fff8f0;
+    --dark: #1a0a0f;
+    --soft-dark: #2e1520;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    font-family: 'Lato', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 18px; height: 18px;
+    background: radial-gradient(circle, #f9c5d1, #e8507a);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, width 0.2s, height 0.2s;
+    mix-blend-mode: screen;
+  }
+  .cursor-trail {
+    width: 8px; height: 8px;
+    background: rgba(232, 80, 122, 0.4);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: left 0.15s ease, top 0.15s ease;
+  }
+
+  /* Floating hearts background */
+  .hearts-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .heart-float {
+    position: absolute;
+    bottom: -50px;
+    font-size: 1rem;
+    animation: floatUp linear infinite;
+    opacity: 0;
+  }
+  @keyframes floatUp {
+    0%   { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
+    10%  { opacity: 0.6; }
+    90%  { opacity: 0.3; }
+    100% { transform: translateY(-110vh) rotate(360deg) scale(1.2); opacity: 0; }
+  }
+
+  /* ===== SLIDE SYSTEM ===== */
+  .slide {
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* ===== SLIDE 0: GREETING ===== */
+  #slide-greeting {
+    background: radial-gradient(ellipse at 50% 60%, #3d0a1f 0%, #1a0a0f 70%);
+  }
+  .greeting-petals {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .petal {
+    position: absolute;
+    width: 12px; height: 20px;
+    border-radius: 50% 0 50% 0;
+    background: linear-gradient(135deg, #e8507a, #f9c5d1);
+    opacity: 0;
+    animation: petalFall linear infinite;
+  }
+  @keyframes petalFall {
+    0%   { transform: translateY(-40px) rotate(0deg); opacity: 0; }
+    5%   { opacity: 0.7; }
+    95%  { opacity: 0.4; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+
+  .greeting-content {
+    text-align: center;
+    z-index: 2;
+    padding: 2rem;
+  }
+  .greeting-pretitle {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: var(--blush);
+    opacity: 0;
+    animation: fadeSlideUp 1s ease 0.5s forwards;
+    letter-spacing: 2px;
+  }
+  .greeting-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 12vw, 9rem);
+    font-style: italic;
+    font-weight: 700;
+    background: linear-gradient(135deg, #f9c5d1 0%, #e8507a 40%, #f4c430 70%, #f9c5d1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0;
+    animation: fadeSlideUp 1.2s ease 0.9s forwards, shimmer 4s linear 2s infinite;
+    background-size: 200% auto;
+    line-height: 1;
+    text-shadow: none;
+  }
+  @keyframes shimmer {
+    0%   { background-position: 0% center; }
+    100% { background-position: 200% center; }
+  }
+  .greeting-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1rem, 3vw, 1.6rem);
+    color: var(--champagne);
+    opacity: 0;
+    animation: fadeSlideUp 1s ease 1.4s forwards;
+    margin-top: 0.5rem;
+    font-weight: 300;
+    font-style: italic;
+  }
+  .greeting-message {
+    max-width: 600px;
+    margin: 2rem auto 0;
+    font-family: 'Lato', sans-serif;
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    color: rgba(249, 197, 209, 0.85);
+    line-height: 1.9;
+    opacity: 0;
+    animation: fadeSlideUp 1s ease 1.9s forwards;
+    font-weight: 300;
+  }
+  .scroll-hint {
+    margin-top: 3rem;
+    opacity: 0;
+    animation: fadeSlideUp 1s ease 2.8s forwards;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--blush);
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.1rem;
+  }
+  .scroll-hint .arrow {
+    font-size: 1.5rem;
+    animation: bounce 1.5s ease infinite;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(8px); }
+  }
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== SLIDE 1: LIGHTS ON ===== */
+  #slide-lights {
+    background: #0a0005;
+  }
+  .dark-room {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+  .room-silhouette {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 35%;
+    background: linear-gradient(to top, #05000a, #12001a);
+    z-index: 1;
+  }
+  .banner-lights {
+    position: absolute;
+    top: 15%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    z-index: 3;
+  }
+  .bulb-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .string-line {
+    width: 80px;
+    height: 2px;
+    background: #333;
+    position: relative;
+  }
+  .bulb {
+    width: 22px; height: 30px;
+    border-radius: 50% 50% 40% 40%;
+    background: #222;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    margin-top: -1px;
+  }
+  .bulb::after {
+    content: '';
+    width: 12px; height: 8px;
+    background: #333;
+    position: absolute;
+    top: -6px; left: 50%;
+    transform: translateX(-50%);
+    border-radius: 3px 3px 0 0;
+  }
+  .bulb.lit {
+    background: var(--gold);
+    box-shadow: 0 0 15px 8px rgba(244,196,48,0.6), 0 0 40px 20px rgba(244,196,48,0.2);
+  }
+  .bulb.lit-pink {
+    background: #ff80ab;
+    box-shadow: 0 0 15px 8px rgba(255,128,171,0.6), 0 0 40px 20px rgba(255,128,171,0.2);
+  }
+  .bulb.lit-rose {
+    background: var(--rose);
+    box-shadow: 0 0 15px 8px rgba(232,80,122,0.6), 0 0 40px 20px rgba(232,80,122,0.2);
+  }
+
+  .lights-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+  }
+  .lights-text.visible { opacity: 1; }
+  .lights-text h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(2rem, 6vw, 4rem);
+    color: var(--gold);
+    text-shadow: 0 0 30px rgba(244,196,48,0.8), 0 0 60px rgba(244,196,48,0.4);
+    margin-bottom: 1rem;
+  }
+  .lights-text p {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--champagne);
+    font-size: clamp(0.9rem, 2vw, 1.2rem);
+    max-width: 500px;
+  }
+  .glow-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 20%, rgba(244,196,48,0.08) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 2s ease;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .glow-overlay.active { opacity: 1; }
+  .stars-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .star {
+    position: absolute;
+    width: 2px; height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle ease infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50%       { opacity: 1; transform: scale(1.5); }
+  }
+  .lights-btn {
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    padding: 14px 42px;
+    background: transparent;
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.3rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+  }
+  .lights-btn:hover {
+    background: var(--gold);
+    color: var(--dark);
+    box-shadow: 0 0 30px rgba(244,196,48,0.5);
+  }
+  .lights-btn.hidden { display: none; }
+
+  /* ===== SLIDE 2: CANDLES ===== */
+  #slide-candles {
+    background: radial-gradient(ellipse at 50% 80%, #2e0a15 0%, #0d0005 60%);
+  }
+  .cake-scene {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+    position: relative;
+  }
+  .candles-row {
+    display: flex;
+    gap: 18px;
+    margin-bottom: -6px;
+    position: relative;
+    z-index: 5;
+  }
+  .candle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .flame {
+    width: 14px;
+    height: 22px;
+    background: radial-gradient(ellipse at 50% 80%, #fff700, #ff9800 40%, #ff4400 80%, transparent 100%);
+    border-radius: 50% 50% 30% 30%;
+    position: relative;
+    animation: flicker 0.3s ease-in-out infinite alternate;
+    filter: blur(0.5px);
+    transition: all 0.5s ease;
+  }
+  .flame::before {
+    content: '';
+    position: absolute;
+    width: 6px; height: 10px;
+    background: radial-gradient(ellipse, #fff, #ffff00);
+    border-radius: 50%;
+    top: 4px; left: 50%;
+    transform: translateX(-50%);
+    filter: blur(1px);
+  }
+  .flame.out {
+    animation: none;
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  @keyframes flicker {
+    0%   { transform: scaleX(1) scaleY(1) rotate(-2deg); }
+    100% { transform: scaleX(0.9) scaleY(1.05) rotate(2deg); }
+  }
+  .candle-body {
+    width: 12px;
+    height: clamp(40px, 8vw, 65px);
+    border-radius: 4px 4px 2px 2px;
+    position: relative;
+    overflow: visible;
+  }
+  .candle-body::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 30%;
+    width: 25%;
+    height: 100%;
+    background: rgba(255,255,255,0.2);
+    border-radius: 4px;
+  }
+
+  /* Cake layers */
+  .cake-top {
+    width: clamp(150px, 35vw, 260px);
+    height: clamp(55px, 10vw, 85px);
+    border-radius: 40% 40% 20% 20% / 50% 50% 30% 30%;
+    position: relative;
+    overflow: hidden;
+  }
+  .cake-top::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 40%;
+    background: rgba(255,255,255,0.25);
+    border-radius: inherit;
+  }
+  .cake-mid {
+    width: clamp(180px, 42vw, 310px);
+    height: clamp(60px, 11vw, 90px);
+    position: relative;
+    overflow: hidden;
+  }
+  .cake-mid::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 30%;
+    background: rgba(255,255,255,0.15);
+  }
+  .cake-base {
+    width: clamp(210px, 50vw, 360px);
+    height: clamp(70px, 13vw, 100px);
+    border-radius: 0 0 20px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cake-base::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 30%;
+    background: rgba(255,255,255,0.12);
+  }
+  .drip {
+    position: absolute;
+    top: -4px;
+    width: 14px; height: 20px;
+    border-radius: 0 0 50% 50%;
+  }
+  .cake-plate {
+    width: clamp(230px, 56vw, 400px);
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #f5f5f5, #ddd);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    margin-top: -4px;
+  }
+
+  .blow-btn {
+    margin-top: 2rem;
+    padding: 14px 42px;
+    background: linear-gradient(135deg, var(--rose), var(--deep-rose));
+    border: none;
+    color: white;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.4rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 30px rgba(232,80,122,0.4);
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+  }
+  .blow-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 40px rgba(232,80,122,0.6);
+  }
+  .blow-btn.hidden { display: none; }
+
+  .wish-reveal {
+    text-align: center;
+    margin-top: 1.5rem;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 1s ease;
+    z-index: 2;
+  }
+  .wish-reveal.active {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .wish-reveal h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    background: linear-gradient(135deg, #f4c430, #e8507a, #f9c5d1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .wish-reveal p {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--blush);
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    margin-top: 0.5rem;
+  }
+
+  /* Sparkles */
+  .sparkle {
+    position: absolute;
+    pointer-events: none;
+    animation: sparkleAnim 0.8s ease forwards;
+    font-size: 1.2rem;
+    z-index: 20;
+  }
+  @keyframes sparkleAnim {
+    0%   { transform: translate(0, 0) scale(0); opacity: 1; }
+    100% { transform: translate(var(--tx), var(--ty)) scale(1.5); opacity: 0; }
+  }
+
+  /* Candle slide slide title */
+  .slide-label {
+    position: absolute;
+    top: 2rem;
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--blush);
+    letter-spacing: 2px;
+    opacity: 0.7;
+    z-index: 5;
+  }
+
+  /* ===== SLIDE 3: PHOTO COLLAGE ===== */
+  #slide-collage {
+    background: linear-gradient(160deg, #1f0515 0%, #3d0a1f 40%, #1a0a0f 100%);
+    padding: 3rem 1.5rem;
+    min-height: 100vh;
+  }
+  .collage-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: var(--champagne);
+    text-align: center;
+    margin-bottom: 0.5rem;
+    z-index: 2;
+    position: relative;
+  }
+  .collage-subtitle {
+    font-family: 'Dancing Script', cursive;
+    color: var(--rose);
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    text-align: center;
+    margin-bottom: 2.5rem;
+    z-index: 2;
+    position: relative;
+  }
+  .collage-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap: 16px;
+    max-width: 900px;
+    width: 100%;
+    z-index: 2;
+    position: relative;
+  }
+  .photo-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transform: rotate(var(--rot)) scale(0.9);
+    opacity: 0;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    animation: cardReveal 0.7s ease forwards;
+    animation-delay: var(--delay);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  }
+  .photo-card:hover {
+    transform: rotate(0deg) scale(1.05) !important;
+    box-shadow: 0 16px 50px rgba(232,80,122,0.4);
+    z-index: 10;
+  }
+  @keyframes cardReveal {
+    from { opacity: 0; transform: rotate(var(--rot)) scale(0.8) translateY(30px); }
+    to   { opacity: 1; transform: rotate(var(--rot)) scale(1); }
+  }
+  .photo-card:nth-child(1) { grid-column: span 2; grid-row: span 1; --rot: -1.5deg; --delay: 0.1s; }
+  .photo-card:nth-child(2) { --rot: 1deg; --delay: 0.2s; }
+  .photo-card:nth-child(3) { --rot: -0.8deg; --delay: 0.35s; }
+  .photo-card:nth-child(4) { --rot: 1.2deg; --delay: 0.45s; }
+  .photo-card:nth-child(5) { grid-column: span 2; --rot: -0.5deg; --delay: 0.55s; }
+
+  .photo-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    min-height: 180px;
+  }
+  .photo-card .placeholder-img {
+    width: 100%;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #3d0a1f, #2e1520);
+    color: rgba(249,197,209,0.5);
+    font-family: 'Lato', sans-serif;
+    font-size: 0.8rem;
+    text-align: center;
+    padding: 1rem;
+  }
+  .photo-card .placeholder-img .icon { font-size: 2rem; }
+  .photo-card .photo-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 12px;
+    background: linear-gradient(to top, rgba(26,10,15,0.9), transparent);
+    font-family: 'Dancing Script', cursive;
+    color: var(--blush);
+    font-size: 0.95rem;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+  .photo-card:hover .photo-overlay { transform: translateY(0); }
+
+  /* ===== SLIDE 4: CAKE CUTTING ===== */
+  #slide-cutting {
+    background: radial-gradient(ellipse at 50% 70%, #3d1520 0%, #0d0005 65%);
+  }
+  .cutting-content {
+    text-align: center;
+    z-index: 2;
+    padding: 2rem;
+  }
+  .knife-animation {
+    font-size: clamp(3rem, 8vw, 6rem);
+    display: block;
+    margin-bottom: 1rem;
+    animation: knifeSwing 2s ease 0.5s both;
+    transform-origin: top center;
+  }
+  @keyframes knifeSwing {
+    0%   { transform: translateY(-60px) rotate(-40deg); opacity: 0; }
+    40%  { transform: translateY(0) rotate(10deg); opacity: 1; }
+    60%  { transform: translateY(0) rotate(-5deg); }
+    80%  { transform: translateY(0) rotate(3deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+  }
+  .cutting-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 6vw, 4.5rem);
+    font-style: italic;
+    color: var(--champagne);
+    opacity: 0;
+    animation: fadeSlideUp 1s ease 1.5s forwards;
+    line-height: 1.2;
+  }
+  .cutting-subtitle {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    color: var(--rose);
+    opacity: 0;
+    animation: fadeSlideUp 1s ease 2s forwards;
+    margin-top: 0.5rem;
+  }
+  .confetti-burst {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .confetti-piece {
+    position: absolute;
+    width: 10px; height: 10px;
+    border-radius: 2px;
+    opacity: 0;
+    animation: confettiFall linear forwards;
+    animation-delay: var(--cd);
+    animation-duration: var(--cdur);
+  }
+  @keyframes confettiFall {
+    0%   { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(105vh) rotate(720deg); opacity: 0.5; }
+  }
+  .cake-slice-emoji {
+    font-size: clamp(3rem, 10vw, 7rem);
+    display: block;
+    margin: 1.5rem 0;
+    opacity: 0;
+    animation: popIn 0.8s cubic-bezier(0.34,1.56,0.64,1) 2.4s forwards;
+  }
+  @keyframes popIn {
+    from { transform: scale(0) rotate(-20deg); opacity: 0; }
+    to   { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+
+  /* ===== SLIDE 5: FINAL MESSAGE ===== */
+  #slide-final {
+    background: radial-gradient(ellipse at 50% 50%, #3d0a1f 0%, #1a0a0f 60%);
+    position: relative;
+  }
+  .final-content {
+    text-align: center;
+    z-index: 2;
+    padding: 2rem;
+    max-width: 750px;
+  }
+  .final-hearts {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeSlideUp 1s ease 0.3s forwards;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .final-hearts span {
+    display: inline-block;
+    animation: heartBeat 1.5s ease infinite;
+  }
+  .final-hearts span:nth-child(2) { animation-delay: 0.2s; }
+  .final-hearts span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes heartBeat {
+    0%, 100% { transform: scale(1); }
+    30%       { transform: scale(1.2); }
+    60%       { transform: scale(0.95); }
+  }
+  .final-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-style: italic;
+    font-weight: 700;
+    background: linear-gradient(135deg, #f9c5d1, #e8507a, #f4c430);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0;
+    animation: fadeSlideUp 1s ease 0.6s forwards;
+    margin-bottom: 0.5rem;
+  }
+  .final-message {
+    font-family: 'Lato', sans-serif;
+    font-size: clamp(0.95rem, 2vw, 1.2rem);
+    color: rgba(249,197,209,0.9);
+    line-height: 2;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeSlideUp 1s ease 1s forwards;
+    margin-top: 1.5rem;
+  }
+  .final-message strong {
+    color: var(--gold);
+    font-style: italic;
+    font-weight: 400;
+  }
+  .final-signature {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(1.3rem, 3.5vw, 2rem);
+    color: var(--rose);
+    opacity: 0;
+    animation: fadeSlideUp 1s ease 1.8s forwards;
+    margin-top: 2rem;
+  }
+  .final-glow {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,80,122,0.12) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse 4s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: translate(-50%,-50%) scale(1); opacity: 0.5; }
+    50%       { transform: translate(-50%,-50%) scale(1.3); opacity: 1; }
+  }
+
+  /* Nav dots */
+  .nav-dots {
+    position: fixed;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+  }
+  .nav-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: rgba(249,197,209,0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1.5px solid rgba(232,80,122,0.3);
+  }
+  .nav-dot.active {
+    background: var(--rose);
+    border-color: var(--rose);
+    box-shadow: 0 0 10px rgba(232,80,122,0.6);
+    transform: scale(1.3);
+  }
+
+  /* Utility */
+  .section-divider {
+    width: 60px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--rose), transparent);
+    margin: 1rem auto;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 600px) {
+    .collage-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .photo-card:nth-child(1) { grid-column: span 2; }
+    .photo-card:nth-child(5) { grid-column: span 2; }
+    .nav-dots { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-trail" id="cursorTrail"></div>
+<div class="hearts-bg" id="heartsBg"></div>
+
+<!-- Nav dots -->
+<nav class="nav-dots" id="navDots">
+  <div class="nav-dot active" onclick="scrollToSlide(0)" title="Welcome"></div>
+  <div class="nav-dot" onclick="scrollToSlide(1)" title="Lights On"></div>
+  <div class="nav-dot" onclick="scrollToSlide(2)" title="Make a Wish"></div>
+  <div class="nav-dot" onclick="scrollToSlide(3)" title="Memories"></div>
+  <div class="nav-dot" onclick="scrollToSlide(4)" title="Cake Cutting"></div>
+  <div class="nav-dot" onclick="scrollToSlide(5)" title="Final Message"></div>
+</nav>
+
+<!-- ===== SLIDE 0: GREETING ===== -->
+<section class="slide" id="slide-greeting">
+  <div class="greeting-petals" id="petals"></div>
+  <div class="greeting-content">
+    <p class="greeting-pretitle">✨ A very special day for a very special soul ✨</p>
+    <h1 class="greeting-name" id="birthdayName">Your Name</h1>
+    <p class="greeting-subtitle">Today the whole world smiles because you exist</p>
+    <div class="section-divider"></div>
+    <p class="greeting-message">
+      Close your eyes for just a moment and feel the warmth of every single wish,
+      every hug, every memory we've shared. Today is completely yours — and I want it
+      to feel as magical as you make every ordinary day feel.
+    </p>
+    <div class="scroll-hint">
+      <span>Scroll to begin your celebration</span>
+      <span class="arrow">↓</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SLIDE 1: LIGHTS ON ===== -->
+<section class="slide" id="slide-lights">
+  <div class="dark-room" id="darkRoom">
+    <div class="stars-bg" id="starsBg"></div>
+    <div class="glow-overlay" id="glowOverlay"></div>
+    <div class="banner-lights" id="bannerLights"></div>
+    <div class="room-silhouette"></div>
+    <div class="lights-text" id="lightsText">
+      <h2>Let there be light! 💡</h2>
+      <p>Every light in this room was lit just for you — because you brighten every room you walk into.</p>
+    </div>
+    <button class="lights-btn" id="lightsBtn" onclick="turnOnLights()">✨ Turn on the Lights</button>
+  </div>
+</section>
+
+<!-- ===== SLIDE 2: CANDLES ===== -->
+<section class="slide" id="slide-candles">
+  <p class="slide-label">🕯️ Make a Wish</p>
+  <div class="cake-scene" id="cakeScene">
+    <div class="candles-row" id="candlesRow"></div>
+
+    <!-- Cake layers -->
+    <div class="cake-top" style="background: linear-gradient(180deg, #f9a8c9, #e8507a); width: clamp(150px,35vw,260px);">
+      <div class="drip" style="left:20%; background:#f4c430;"></div>
+      <div class="drip" style="left:40%; background:#f4c430; height:28px;"></div>
+      <div class="drip" style="left:65%; background:#f4c430; height:16px;"></div>
+    </div>
+    <div class="cake-mid" style="background: linear-gradient(180deg, #c0325a, #a02048);">
+      <div class="drip" style="left:15%; background:#f9a8c9; height:22px;"></div>
+      <div class="drip" style="left:35%; background:#f9a8c9;"></div>
+      <div class="drip" style="left:55%; background:#f9a8c9; height:26px;"></div>
+      <div class="drip" style="left:75%; background:#f9a8c9; height:18px;"></div>
+    </div>
+    <div class="cake-base" style="background: linear-gradient(180deg, #e8507a, #c0325a);">
+      <div class="drip" style="left:10%; background:#f4c430; height:24px;"></div>
+      <div class="drip" style="left:30%; background:#f4c430;"></div>
+      <div class="drip" style="left:50%; background:#f4c430; height:28px;"></div>
+      <div class="drip" style="left:70%; background:#f4c430; height:20px;"></div>
+      <div class="drip" style="left:85%; background:#f4c430; height:26px;"></div>
+    </div>
+    <div class="cake-plate"></div>
+
+    <button class="blow-btn" id="blowBtn" onclick="blowCandles()">🌬️ Blow the Candles!</button>
+    <div class="wish-reveal" id="wishReveal">
+      <h2>Your wish is on its way! ✨</h2>
+      <p>"Close your eyes and dream big — the universe is listening today."</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SLIDE 3: COLLAGE ===== -->
+<section class="slide" id="slide-collage">
+  <h2 class="collage-title">Our Beautiful Memories</h2>
+  <p class="collage-subtitle">✦ A scrapbook of our favourite moments ✦</p>
+  <div class="collage-grid" id="collageGrid">
+    <div class="photo-card">
+      <!--Replace src with your image path e.g. src="images/photo1.jpg"-->
+      <div class="placeholder-img">
+        <span class="icon">📸</span>
+        <span>Add your photo here<br><small>images/photo1.jpg</small></span>
+      </div>
+      <div class="photo-overlay">💕 Beautiful memories</div>
+    </div>
+    <div class="photo-card">
+      <div class="placeholder-img">
+        <span class="icon">🌸</span>
+        <span>Add your photo here<br><small>images/photo2.jpg</small></span>
+      </div>
+      <div class="photo-overlay">🎀 Always laughing</div>
+    </div>
+    <div class="photo-card">
+      <div class="placeholder-img">
+        <span class="icon">✨</span>
+        <span>Add your photo here<br><small>images/photo3.jpg</small></span>
+      </div>
+      <div class="photo-overlay">💖 Best moments</div>
+    </div>
+    <div class="photo-card">
+      <div class="placeholder-img">
+        <span class="icon">🎉</span>
+        <span>Add your photo here<br><small>images/photo4.jpg</small></span>
+      </div>
+      <div class="photo-overlay">🌟 Unforgettable</div>
+    </div>
+    <div class="photo-card">
+      <div class="placeholder-img">
+        <span class="icon">💗</span>
+        <span>Add your photo here<br><small>images/photo5.jpg</small></span>
+      </div>
+      <div class="photo-overlay">🎊 Together forever</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SLIDE 4: CAKE CUTTING ===== -->
+<section class="slide" id="slide-cutting">
+  <div class="confetti-burst" id="confettiBurst"></div>
+  <div class="cutting-content">
+    <span class="knife-animation">🔪</span>
+    <h2 class="cutting-title">Time to Cut the Cake!</h2>
+    <p class="cutting-subtitle">May every slice be as sweet as your laughter</p>
+    <span class="cake-slice-emoji">🍰</span>
+    <p style="font-family:'Lato',sans-serif; color:rgba(249,197,209,0.7); font-size:0.95rem; margin-top:1rem; font-weight:300; opacity:0; animation: fadeSlideUp 1s ease 3.2s forwards;">
+      Each layer of this cake holds all the sweetness life has to offer — <br>and you deserve every single bite!
+    </p>
+  </div>
+</section>
+
+<!-- ===== SLIDE 5: FINAL MESSAGE ===== -->
+<section class="slide" id="slide-final">
+  <div class="final-glow"></div>
+  <div class="final-content">
+    <div class="final-hearts">
+      <span>💗</span><span>💖</span><span>💗</span>
+    </div>
+    <h2 class="final-title">You Make This World More Beautiful</h2>
+    <div class="section-divider"></div>
+    <p class="final-message">
+      On this day that belongs to you, I want you to know that your smile is someone's sunshine,
+      your laugh is someone's favourite sound, and your presence in this world is a <strong>gift
+      that keeps giving</strong>. You've touched my life in ways words can barely hold.
+      <br><br>
+      So here's to you — to your dreams that haven't bloomed yet, your adventures yet to be lived,
+      and the countless memories still waiting for us. <strong>May this year be your most magical one yet.</strong>
+      <br><br>
+      I love you to the moon and back, bestie. Always and forever. 🌙
+    </p>
+    <div class="section-divider"></div>
+    <p class="final-signature">
+      With all the love in my heart — Happy Birthday! 🎂✨
+    </p>
+  </div>
+</section>
+
+<script>
+// ===== CONFIG — Change the name here! =====
+const BIRTHDAY_PERSON_NAME = "Your Name"; // ← Replace with the birthday girl's name
+
+// ===== INIT =====
+document.getElementById('birthdayName').textContent = BIRTHDAY_PERSON_NAME;
+
+// ===== CURSOR =====
+const cursor = document.getElementById('cursor');
+const trail  = document.getElementById('cursorTrail');
+let mx = 0, my = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+  setTimeout(() => { trail.style.left = mx + 'px'; trail.style.top = my + 'px'; }, 80);
+});
+
+// ===== FLOATING HEARTS BG =====
+function createFloatingHearts() {
+  const bg = document.getElementById('heartsBg');
+  const symbols = ['♥','♡','❤','💕','💖','✦','✧'];
+  for (let i = 0; i < 28; i++) {
+    const h = document.createElement('div');
+    h.className = 'heart-float';
+    h.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+    h.style.cssText = `
+      left: ${Math.random()*100}%;
+      font-size: ${0.6 + Math.random()*1.4}rem;
+      color: hsl(${330 + Math.random()*40}, 70%, ${50 + Math.random()*30}%);
+      animation-duration: ${8 + Math.random()*14}s;
+      animation-delay: ${Math.random()*12}s;
+    `;
+    bg.appendChild(h);
+  }
+}
+createFloatingHearts();
+
+// ===== FALLING PETALS =====
+function createPetals() {
+  const container = document.getElementById('petals');
+  for (let i = 0; i < 22; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.style.cssText = `
+      left: ${Math.random()*100}%;
+      animation-duration: ${5 + Math.random()*8}s;
+      animation-delay: ${Math.random()*10}s;
+      transform: rotate(${Math.random()*360}deg);
+      opacity: 0;
+      background: linear-gradient(135deg,
+        hsl(${330+Math.random()*40}, 80%, ${60+Math.random()*20}%),
+        hsl(${300+Math.random()*60}, 70%, 80%));
+    `;
+    container.appendChild(p);
+  }
+}
+createPetals();
+
+// ===== STARS BACKGROUND =====
+function createStars() {
+  const bg = document.getElementById('starsBg');
+  for (let i = 0; i < 120; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    s.style.cssText = `
+      left: ${Math.random()*100}%; top: ${Math.random()*100}%;
+      animation-duration: ${1.5 + Math.random()*3}s;
+      animation-delay: ${Math.random()*3}s;
+      opacity: ${0.2 + Math.random()*0.5};
+    `;
+    bg.appendChild(s);
+  }
+}
+createStars();
+
+// ===== BANNER LIGHTS =====
+function createBannerLights() {
+  const row = document.getElementById('bannerLights');
+  const colors = ['lit','lit-pink','lit-rose'];
+  for (let i = 0; i < 14; i++) {
+    const wrap = document.createElement('div');
+    wrap.className = 'bulb-wrap';
+    const line = document.createElement('div');
+    line.className = 'string-line';
+    const bulb = document.createElement('div');
+    bulb.className = 'bulb';
+    bulb.id = 'bulb-' + i;
+    bulb.dataset.color = colors[i % colors.length];
+    wrap.appendChild(line);
+    wrap.appendChild(bulb);
+    row.appendChild(wrap);
+  }
+}
+createBannerLights();
+
+// ===== CANDLES =====
+function createCandles() {
+  const row = document.getElementById('candlesRow');
+  const candleColors = [
+    ['#e8507a','#c0325a'], ['#f4c430','#d4a810'], ['#f9a8c9','#e8507a'],
+    ['#ff80ab','#e0507a'], ['#f4c430','#d4a810'], ['#e8507a','#c0325a']
+  ];
+  for (let i = 0; i < 6; i++) {
+    const c = document.createElement('div');
+    c.className = 'candle';
+    const [c1, c2] = candleColors[i];
+    c.innerHTML = `
+      <div class="flame" id="flame-${i}"></div>
+      <div class="candle-body" style="background:linear-gradient(180deg,${c1},${c2});" id="candle-${i}"></div>
+    `;
+    row.appendChild(c);
+  }
+}
+createCandles();
+
+// ===== CONFETTI =====
+function createConfetti() {
+  const burst = document.getElementById('confettiBurst');
+  burst.innerHTML = '';
+  const cols = ['#e8507a','#f4c430','#f9c5d1','#ff80ab','#fff','#c0325a','#f9a8c9','#ffe082'];
+  for (let i = 0; i < 80; i++) {
+    const p = document.createElement('div');
+    p.className = 'confetti-piece';
+    const shape = Math.random() > 0.5 ? '50%' : '2px';
+    p.style.cssText = `
+      left: ${10 + Math.random()*80}%;
+      background: ${cols[Math.floor(Math.random()*cols.length)]};
+      border-radius: ${shape};
+      width: ${6 + Math.random()*8}px;
+      height: ${6 + Math.random()*12}px;
+      --cd: ${Math.random()*2.5 + 1.5}s;
+      --cdur: ${2 + Math.random()*3}s;
+    `;
+    burst.appendChild(p);
+  }
+}
+createConfetti();
+
+// ===== LIGHTS ON ANIMATION =====
+let lightsOn = false;
+function turnOnLights() {
+  if (lightsOn) return;
+  lightsOn = true;
+  document.getElementById('lightsBtn').classList.add('hidden');
+
+  const bulbs = document.querySelectorAll('.bulb');
+  bulbs.forEach((b, i) => {
+    setTimeout(() => {
+      b.classList.add(b.dataset.color);
+    }, i * 120 + Math.random() * 80);
+  });
+
+  setTimeout(() => {
+    document.getElementById('glowOverlay').classList.add('active');
+    document.getElementById('lightsText').classList.add('visible');
+  }, 1600);
+}
+
+// ===== BLOW CANDLES =====
+let candlesBlown = false;
+function blowCandles() {
+  if (candlesBlown) return;
+  candlesBlown = true;
+  document.getElementById('blowBtn').classList.add('hidden');
+
+  for (let i = 0; i < 6; i++) {
+    setTimeout(() => {
+      const flame = document.getElementById('flame-' + i);
+      if (flame) {
+        flame.classList.add('out');
+        createSparkles(flame);
+      }
+    }, i * 180 + Math.random() * 100);
+  }
+
+  setTimeout(() => {
+    document.getElementById('wishReveal').classList.add('active');
+  }, 1600);
+}
+
+function createSparkles(el) {
+  const rect = el.getBoundingClientRect();
+  const cx = rect.left + rect.width / 2;
+  const cy = rect.top + rect.height / 2;
+  const emojis = ['✨','⭐','💫','🌟','✦'];
+  for (let i = 0; i < 6; i++) {
+    const s = document.createElement('div');
+    s.className = 'sparkle';
+    s.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    s.style.cssText = `
+      left: ${cx}px; top: ${cy}px;
+      --tx: ${(Math.random()-0.5)*80}px;
+      --ty: ${(Math.random()-0.5)*80 - 20}px;
+      animation-delay: ${i*0.08}s;
+    `;
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 1000);
+  }
+}
+
+// ===== NAV DOTS + SCROLL =====
+const slides = ['slide-greeting','slide-lights','slide-candles','slide-collage','slide-cutting','slide-final'];
+const dots = document.querySelectorAll('.nav-dot');
+
+function scrollToSlide(i) {
+  document.getElementById(slides[i]).scrollIntoView({ behavior: 'smooth' });
+}
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const idx = slides.indexOf(entry.target.id);
+      if (idx >= 0) {
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      }
+    }
+  });
+}, { threshold: 0.5 });
+
+slides.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) observer.observe(el);
+});
+
+// Auto-trigger confetti when cake cutting slide visible
+const cuttingObs = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    createConfetti();
+    cuttingObs.disconnect();
+  }
+}, { threshold: 0.4 });
+const cuttingSlide = document.getElementById('slide-cutting');
+if (cuttingSlide) cuttingObs.observe(cuttingSlide);
+</script>
+</body>
+</html>
