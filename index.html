@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Happy Birthday 🎂</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=Dancing+Script:wght@500;700&family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="icon" href="icon.png" type="image/png">
 <style>
 :root {
   --rose:#e8436a; --blush:#f7a8be; --petal:#fce4ec;
@@ -171,23 +172,17 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--deep);font-fam
 .pol-ph small{font-family:'Dancing Script',cursive;font-size:.65rem;color:rgba(212,168,83,.5);text-align:center;padding:0 4px;}
 .pol-caption{height:28px;display:flex;align-items:center;justify-content:center;font-family:'Dancing Script',cursive;font-size:.72rem;color:#555;background:#fff;}
 
-/* positions – 8 photos in a beautiful mosaic */
+/* positions – 5 photos in a beautiful mosaic */
 /* Large hero top-left */
-.pol:nth-child(1){--r:-3deg;width:50%;height:50%;top:0;left:0;}
-/* Tall right */
-.pol:nth-child(2){--r:2.5deg;width:44%;height:55%;top:0;right:0;}
-/* Small mid-left */
-.pol:nth-child(3){--r:-2deg;width:30%;height:30%;top:36%;left:2%;}
-/* Wide mid */
-.pol:nth-child(4){--r:1.5deg;width:44%;height:28%;top:37%;left:27%;}
-/* Bottom-left */
-.pol:nth-child(5){--r:2deg;width:33%;height:33%;bottom:0;left:0;}
-/* Bottom-center */
-.pol:nth-child(6){--r:-1.5deg;width:33%;height:30%;bottom:0;left:31%;}
-/* Bottom-right tall */
-.pol:nth-child(7){--r:2.5deg;width:30%;height:42%;bottom:0;right:0;}
-/* Floating accent */
-.pol:nth-child(8){--r:-4deg;width:26%;height:26%;top:50%;left:28%;z-index:10;}
+.pol:nth-child(1){--r:-3deg;  width:56%; height:52%; top:0;   left:0;}
+/* Tall top-right */
+.pol:nth-child(2){--r:2.5deg; width:40%; height:60%; top:0;   right:0;}
+/* Wide center-bottom-left */
+.pol:nth-child(3){--r:-2deg;  width:54%; height:42%; bottom:0;left:0;}
+/* Small floating accent */
+.pol:nth-child(4){--r:4deg;   width:32%; height:30%; top:42%; left:30%;z-index:10;}
+/* Bottom-right */
+.pol:nth-child(5){--r:2deg;   width:38%; height:40%; bottom:0;right:0;}
 
 /* ══════════════════════════════════════
    SLIDE 4 – CAKE CUTTING
@@ -303,7 +298,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--deep);font-fam
     <!-- ✏️ CHANGE NAME HERE -->
     <h1 class="g-name">Aditi</h1>
     <p class="g-sub">Happy Birthday, My Dearest Bestfriend 🌸</p>
-    <p class="g-msg">On this magical day, the universe pauses to celebrate the most extraordinary soul I have ever known. You are my sunshine, my confidant, my forever person. 💕</p>
+    <p class="g-msg">On this magical day, the universe pauses to celebrate the most extraordinary soul I have ever known.</p>
   </div>
   <button class="next-btn" onclick="goTo(1)">Begin Your Birthday Journey ✨</button>
 </div>
@@ -358,8 +353,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--deep);font-fam
 <!-- ═══ SLIDE 3: COLLAGE ═══ -->
 <div class="slide" id="s3">
   <div class="slide-inner" style="justify-content:center;">
-    <h2 class="collage-title" id="colTitle">Our Beautiful Memories 📸</h2>
-    <p class="collage-sub" id="colSub">Moments that made my heart so full</p>
+    <h2 class="collage-title" id="colTitle">Beautiful Memories 📸</h2>
+    <p class="collage-sub" id="colSub">Moments 🤩</p>
 
     <div class="polaroid-grid" id="polGrid">
       <!--
@@ -369,39 +364,28 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--deep);font-fam
         Put your photos in an "images/" folder next to this file.
       -->
       <div class="pol">
-        <div class="pol-ph"><span>📷</span><small>images/photo1.jpg</small></div>
-        <div class="pol-caption">First adventure ✨</div>
+        <img class="pol-img" src="images/photo4.jpg" alt="">
+        <div class="pol-caption">Posing 🤌</div>
       </div>
       <div class="pol">
-        <div class="pol-ph"><span>🌸</span><small>images/photo2.jpg</small></div>
-        <div class="pol-caption">Laughing till we cried 😂</div>
+        <img class="pol-img" src="images/photo1.jpg" alt="">
+        <div class="pol-caption">Jhumka Girl ✨ </div>
       </div>
       <div class="pol">
-        <div class="pol-ph"><span>💖</span><small>images/photo3.jpg</small></div>
-        <div class="pol-caption">Best day ♥</div>
+         <img class="pol-img" src="images/photo2.jpg" alt="">
+        <div class="pol-caption">Eyes ♥</div>
       </div>
       <div class="pol">
-        <div class="pol-ph"><span>🎉</span><small>images/photo4.jpg</small></div>
-        <div class="pol-caption">Celebrating us 🥂</div>
+        <img class="pol-img" src="images/photo3.jpg" alt="">
+        <div class="pol-caption">Heroine🥂</div>
       </div>
       <div class="pol">
-        <div class="pol-ph"><span>🌹</span><small>images/photo5.jpg</small></div>
-        <div class="pol-caption">My fav human 🌺</div>
+        <img class="pol-img" src="images/photo5.jpg" alt="">
+        <div class="pol-caption">In Saree🌺</div>
       </div>
-      <div class="pol">
-        <div class="pol-ph"><span>✨</span><small>images/photo6.jpg</small></div>
-        <div class="pol-caption">Golden moments 🌟</div>
-      </div>
-      <div class="pol">
-        <div class="pol-ph"><span>🎀</span><small>images/photo7.jpg</small></div>
-        <div class="pol-caption">Forever & always 💞</div>
-      </div>
-      <div class="pol">
-        <div class="pol-ph"><span>💝</span><small>images/photo8.jpg</small></div>
-        <div class="pol-caption">Always together 🌸</div>
-      </div>
+
     </div>
-    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(212,168,83,.55);font-size:.75rem;margin-top:10px;text-align:center;">Tap any photo to feel the love 💕</p>
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(212,168,83,.55);font-size:.75rem;margin-top:10px;text-align:center;">Tap any photo to feel💕</p>
   </div>
   <button class="next-btn" onclick="goTo(4)">Cut the Cake! 🎂</button>
 </div>
@@ -456,9 +440,9 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--deep);font-fam
     <span class="finale-emoji" id="fEmoji">💝</span>
     <h2 class="finale-quote" id="fQuote">"You are the poem I never knew how to write."</h2>
     <p class="finale-para" id="fP1">On this very special day, I want you to know that having you in my life is the greatest gift the universe ever gave me. You make ordinary days extraordinary and hard days bearable.</p>
-    <p class="finale-para finale-para2" id="fP2">May every candle you blew carry your wishes straight to the stars. Here's to you — endlessly, wholeheartedly, forever. 🌹</p>
+    <p class="finale-para finale-para2" id="fP2">May every candle you blew carry your wishes straight to the stars. Here's to you — endlessly, wholeheartedly, forever.</p>
     <!-- ✏️ CHANGE SENDER NAME -->
-    <p class="finale-sign" id="fSign">With all my love,<br><span style="font-size:1.5em;color:var(--gold);">Your Best Friend 💕</span></p>
+    <p class="finale-sign" id="fSign">From,<br><span style="font-size:1.5em;color:var(--gold);">Your Best Friend 💕</span></p>
   </div>
 </div>
 
